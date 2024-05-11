@@ -1,13 +1,8 @@
-﻿using System.Text;
+﻿using Microsoft.Win32;
+using System.Windows.Media;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WPFPROJECT
 {
@@ -21,39 +16,40 @@ namespace WPFPROJECT
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            txtDisplay.Text = textBoxInput.Text;
-           
-        }
-
-        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ChangeTextColor_Click(object sender, RoutedEventArgs e)
         {
             string selectedColor = ((ComboBoxItem)colorComboBox.SelectedItem).Content.ToString();
-
-            switch (selectedColor)
+            inputTextBox.Foreground = selectedColor switch
             {
-                case "Чорний":
-                    txtDisplay.Foreground = Brushes.Black;
-                    break;
-                case "Червоний":
-                    txtDisplay.Foreground = Brushes.Red;
-                    break;
-                case "Зелений":
-                    txtDisplay.Foreground = Brushes.Green;
-                    break;
-                case "Синій":
-                    txtDisplay.Foreground = Brushes.Blue;
-                    break;
-                default:
-                    txtDisplay.Foreground = Brushes.Black;
-                    break;
+                "Чорний" => Brushes.Black,
+                "Червоний" => Brushes.Red,
+                "Зелений" => Brushes.Green,
+                "Синій" => Brushes.Blue,
+                _ => Brushes.Black,
+            };
+        }
+
+        private void OpenFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                inputTextBox.Text = File.ReadAllText(openFileDialog.FileName);
             }
+        }
+
+        private void SaveFileAs_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                File.WriteAllText(saveFileDialog.FileName, inputTextBox.Text);
+            }
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

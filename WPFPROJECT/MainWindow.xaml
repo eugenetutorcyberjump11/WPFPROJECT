@@ -6,29 +6,37 @@
         xmlns:local="clr-namespace:WPFPROJECT"
         mc:Ignorable="d"
         Title="Hello world" Height="500" Width="500">
-    <Grid>
-        <TextBlock HorizontalAlignment="Center" 
-                   x:Name="txtDisplay"
-                   TextWrapping="Wrap" Text="Hello" 
-                   VerticalAlignment="Top" 
-                   Height="22" 
-                   Width="100" 
-                   TextAlignment="Center" Margin="0,220,0,0"/>
-        <Button Content="Змінити" 
-                HorizontalAlignment="Center" 
-                Margin="0,253,0,0" 
-                VerticalAlignment="Top" Click="Button_Click"/>
-        <TextBox x:Name="textBoxInput" 
-                 HorizontalAlignment="Center" 
-                 Margin="0,173,0,0" 
-                 TextWrapping="Wrap" 
-                 Text="TextBox" 
-                 VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged_1"/>
-        <ComboBox x:Name="colorComboBox" HorizontalAlignment="Center" Margin="0,288,0,0" VerticalAlignment="Top" Width="120" Text="colorComboBox" SelectionChanged="ComboBox_SelectionChanged">
-            <ComboBoxItem Content="Чорний"/>
-            <ComboBoxItem Content="Червоний"/>
-            <ComboBoxItem Content="Зелений"/>
-            <ComboBoxItem Content="Синій"/>
-        </ComboBox>
-    </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="_Open" Click="OpenFile_Click"/>
+                <MenuItem Header="_Save As" Click="SaveFileAs_Click"/>
+                <Separator />
+                <MenuItem Header="_Exit" Click="Exit_Click"/>
+            </MenuItem>
+        </Menu>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBox x:Name="inputTextBox"
+                     Width="400"
+                     Height="200"
+                     Margin="10"
+                     TextWrapping = "Wrap"
+                     VerticalScrollBarVisibility="Auto"
+                     HorizontalScrollBarVisibility="Auto" />
+            
+            <ComboBox x:Name="colorComboBox" 
+                      Width="200"
+                      Margin="10"
+                      SelectedIndex="0">
+                <ComboBoxItem Content="Чорний"/>
+                <ComboBoxItem Content="Червоний"/>
+                <ComboBoxItem Content="Зелений"/>
+                <ComboBoxItem Content="Синій"/>
+            </ComboBox>
+                
+            <Button Content="Змінити колір тексту"
+                    Margin="10"
+                    Click="ChangeTextColor_Click" />
+        </StackPanel>
+    </DockPanel>
 </Window>
